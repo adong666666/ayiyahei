@@ -114,7 +114,24 @@ footer{padding:36px 24px;text-align:center;color:var(--muted);font-size:13px;bor
 .lb-caption{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#cfd8ef;font-size:14px}.lb-count{position:absolute;top:34px;left:50%;transform:translateX(-50%);color:#8fa0c7;font-size:13px}
 @media(max-width:640px){header{gap:10px;padding:11px 14px}header .badge{display:none}select{max-width:150px;font-size:13px}.hero{padding:52px 16px 14px}.features{grid-template-columns:repeat(2,1fr)}.gallery figure:first-child{grid-column:span 1;grid-row:span 1}}
 </style>
-</head>
+<script>
+(function(){
+  var MAP = [["ar", "ar"], ["hi", "hi"], ["pl", "pl"], ["da", "da"], ["de", "de"], ["ru", "ru"], ["zh-Hant", "zh-tw"], ["fi", "fi"], ["fr", "fr"], ["fr-CA", "fr-ca"], ["gu", "gu"], ["nl", "nl"], ["ko", "ko"], ["ca", "ca"], ["zh-Hans", "zh-cn"], ["cs", "cs"], ["hr", "hr"], ["kn", "kn"], ["ro", "ro"], ["bn", "bn"], ["ms", "ms"], ["ml", "ml"], ["mr", "mr"], ["nb", "nb"], ["or", "or"], ["pt-BR", "pt-br"], ["pt-PT", "pt-pt"], ["pa", "pa"], ["ja", "ja"], ["sv", "sv"], ["sk", "sk"], ["sl", "sl"], ["ta", "ta"], ["te", "te"], ["th", "th"], ["tr", "tr"], ["uk", "uk"], ["ur", "ur"], ["el", "el"], ["he", "he"], ["hu", "hu"], ["es-MX", "es-mx"], ["es-ES", "es"], ["en-AU", "en-au"], ["en-CA", "en-ca"], ["en-GB", "en-gb"], ["en-US", "en"], ["id", "id"], ["it", "it"], ["vi", "vi"]];
+  var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+  function find(l){
+    l = l.toLowerCase().replace('_','-');
+    for (var i=0;i<MAP.length;i++) if (MAP[i][0].toLowerCase()===l) return MAP[i][1];
+    if (l.indexOf('zh')===0) return (l.indexOf('tw')>=0||l.indexOf('hk')>=0||l.indexOf('mo')>=0||l.indexOf('hant')>=0) ? 'zh-tw' : 'zh-cn';
+    var base = l.split('-')[0];
+    for (var i=0;i<MAP.length;i++) if (MAP[i][0].split('-')[0]===base) return MAP[i][1];
+    return null;
+  }
+  for (var i=0;i<list.length;i++){
+    var slug = find(list[i]);
+    if (slug && slug!=='en'){ location.replace('/'+slug+'/'); return; }
+  }
+})();
+</script></head>
 <body>
 <canvas id="fx"></canvas><div class="bg"></div><div id="spot"></div><div class="scan"></div>
 <header>
